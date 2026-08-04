@@ -12,9 +12,21 @@ public class Main {
         students.add(student2);
         students.add(student3);
 
+        String searchStudentId = "2026002";
+
+        boolean found = false;
+
         for (int i = 0; i < students.size(); i ++){
             Student student = students.get(i);
-            student.printInfo();
+            if (searchStudentId.equals(student.studentId)) {
+                found = true;
+                System.out.println("학생을 찾았습니다.");
+                student.printInfo();
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("학생이 존재하지 않습니다.");
         }
     }
 }
