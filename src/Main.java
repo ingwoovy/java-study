@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -5,8 +7,14 @@ public class Main {
         Student student2 = new Student("김철수", 25, "2026002");
         Student student3 = new Student("이영희", 22, "2026003");
 
-        student1.printInfo();
-        student2.printInfo();
-        student3.printInfo();
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
+
+        for (int i = 0; i < students.size(); i ++){
+            Student student = students.get(i);
+            student.printInfo();
+        }
     }
 }
