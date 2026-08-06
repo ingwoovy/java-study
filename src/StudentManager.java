@@ -11,6 +11,10 @@ public class StudentManager {
 
     // 전체 학생 출력
     public void printAllStudents() {
+        if (students.isEmpty()) {
+            System.out.println("등록된 학생이 없습니다.");
+            return;
+        }
         for (int i = 0; i < students.size(); i++) {
             Student student = students.get(i);
             student.printInfo();
@@ -37,7 +41,7 @@ public class StudentManager {
         }
     }
 
-    //학생 삭제
+    // 학생 삭제
     public void removeStudent(String studentId) {
 
         boolean found = false;

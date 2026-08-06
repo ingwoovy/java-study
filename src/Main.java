@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         StudentManager manager = new StudentManager();
 
         Student student1 = new Student("홍길동", 23, "2026001");
@@ -11,12 +15,67 @@ public class Main {
         manager.addStudent(student2);
         manager.addStudent(student3);
 
-        manager.printAllStudents();
-        manager.findStudentById("2026002");
-        manager.removeStudent(student2.studentId);
-        manager.removeStudent("999999");
+        while (true) {
+            System.out.println("===== 학생 관리 프로그램 =====");
+            System.out.println("1. 학생 추가");
+            System.out.println("2. 전체 학생 출력");
+            System.out.println("3. 학번으로 학생 검색");
+            System.out.println("4. 학번으로 학생 삭제");
+            System.out.println("5. 종료");
+            System.out.print("메뉴 번호를 입력하세요: ");
 
-        System.out.println("===== 삭제 후 학생 목록 =====");
-        manager.printAllStudents();
+            int menu = scanner.nextInt();
+
+            switch (menu) {
+                case 1:
+                    System.out.println("학생 추가를 선택했습니다.");
+
+                    System.out.print("이름을 입력하세요: ");
+                    String name = scanner.next();
+
+                    System.out.print("나이를 입력하세요: ");
+                    int age = scanner.nextInt();
+
+                    System.out.print("학번을 입력하세요: ");
+                    String studentId = scanner.next();
+
+                    Student newStudent = new Student(name, age, studentId);
+                    manager.addStudent(newStudent);
+
+                    System.out.println("학생이 추가되었습니다.");
+                    break;
+
+                case 2:
+                    System.out.println("전체 출력을 선택했습니다.");
+                    manager.printAllStudents();
+                    break;
+
+                case 3:
+                    System.out.println("학생 검색을 선택했습니다.");
+                    System.out.print("검색할 학번을 입력하세요: ");
+
+                    String searchStudentId = scanner.next();
+
+                    manager.findStudentById(searchStudentId);
+                    break;
+
+                case 4:
+                    System.out.println("학생 삭제를 선택했습니다.");
+                    System.out.print("삭제할 학번을 입력하세요: ");
+
+                    String removeStdentId = scanner.next();
+
+                    manager.removeStudent(removeStdentId);
+                    break;
+
+                case 5:
+                    System.out.println("프로그램을 종료합니다.");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("올바른 번호를 입력하세요.");
+            }
+        }
     }
 }
