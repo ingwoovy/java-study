@@ -20,8 +20,9 @@ public class Main {
             System.out.println("1. 학생 추가");
             System.out.println("2. 전체 학생 출력");
             System.out.println("3. 학번으로 학생 검색");
-            System.out.println("4. 학번으로 학생 삭제");
-            System.out.println("5. 종료");
+            System.out.println("4. 학생 정보 수정");
+            System.out.println("5. 학번으로 학생 삭제");
+            System.out.println("6. 종료");
             System.out.print("메뉴 번호를 입력하세요: ");
 
             int menu = scanner.nextInt();
@@ -41,8 +42,6 @@ public class Main {
 
                     Student newStudent = new Student(name, age, studentId);
                     manager.addStudent(newStudent);
-
-                    System.out.println("학생이 추가되었습니다.");
                     break;
 
                 case 2:
@@ -60,15 +59,30 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("학생 삭제를 선택했습니다.");
-                    System.out.print("삭제할 학번을 입력하세요: ");
+                    System.out.println("학생 정보 수정을 선택했습니다.");
 
-                    String removeStdentId = scanner.next();
+                    System.out.print("수정할 학생의 학번을 입력하세요: ");
+                    String updateStudentId = scanner.next();
 
-                    manager.removeStudent(removeStdentId);
+                    System.out.print("새 이름을 입력하세요: ");
+                    String newName = scanner.next();
+
+                    System.out.print("새 나이를 입력하세요: ");
+                    int newAge = scanner.nextInt();
+
+                    manager.updateStudent(updateStudentId, newName, newAge);
                     break;
 
                 case 5:
+                    System.out.println("학생 삭제를 선택했습니다.");
+                    System.out.print("삭제할 학번을 입력하세요: ");
+
+                    String removeStudentId = scanner.next();
+
+                    manager.removeStudent(removeStudentId);
+                    break;
+
+                case 6:
                     System.out.println("프로그램을 종료합니다.");
                     scanner.close();
                     return;
