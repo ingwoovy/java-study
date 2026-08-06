@@ -1,8 +1,19 @@
 public class Student {
 
-    String name;
-    int age;
-    String studentId;
+    private String name;
+    private int age;
+    private String studentId;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+    public String getStudentId() {
+        return studentId;
+    }
 
     public Student(String name, int age, String studentId) {
         this.name = name;
@@ -20,4 +31,8 @@ public class Student {
         System.out.println("===================");
     }
 
+    public void updateInfo(String newName, int newAge) {
+        this.name = newName;
+        this.age = newAge;
+    }
 }

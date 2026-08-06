@@ -8,7 +8,7 @@ public class StudentManager {
     public void addStudent(Student student) {
         for (int i = 0; i < students.size(); i ++) {
             Student existingStudent = students.get(i);
-            if (student.studentId.equals(existingStudent.studentId)){
+            if (student.getStudentId().equals(existingStudent.getStudentId())){
                 System.out.println("이미 존재하는 학번입니다.");
                 return;
             }
@@ -37,7 +37,7 @@ public class StudentManager {
         for (int i = 0; i < students.size(); i ++){
             Student student = students.get(i);
 
-            if (searchStudentId.equals(student.studentId)) {
+            if (searchStudentId.equals(student.getStudentId())) {
                 found = true;
                 System.out.println("학생을 찾았습니다.");
                 student.printInfo();
@@ -56,9 +56,8 @@ public class StudentManager {
         for (int i = 0; i < students.size(); i++) {
             Student student = students.get(i);
 
-            if (studentId.equals(student.studentId)) {
-                student.name = newName;
-                student.age = newAge;
+            if (studentId.equals(student.getStudentId())) {
+                student.updateInfo(newName, newAge);
 
                 found = true;
 
@@ -79,7 +78,7 @@ public class StudentManager {
         for (int i = 0; i < students.size(); i++) {
             Student student = students.get(i);
 
-            if (studentId.equals(student.studentId)) {
+            if (studentId.equals(student.getStudentId())) {
                 found = true;
                 students.remove(i);
                 System.out.println("학생이 삭제되었습니다.");
