@@ -13,5 +13,10 @@ public class Main {
 
         manager.printAllStudents();
         manager.findStudentById("2026002");
+        manager.removeStudent(student2.studentId);
+        manager.removeStudent("999999");
+
+        System.out.println("===== 삭제 후 학생 목록 =====");
+        manager.printAllStudents();
     }
 }

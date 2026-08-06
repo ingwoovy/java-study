@@ -37,4 +37,23 @@ public class StudentManager {
         }
     }
 
+    //학생 삭제
+    public void removeStudent(String studentId) {
+
+        boolean found = false;
+
+        for (int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+
+            if (studentId.equals(student.studentId)) {
+                found = true;
+                students.remove(i);
+                System.out.println("학생이 삭제되었습니다.");
+                break;
+            }
+        }
+        if(!found) {
+            System.out.println("학생이 존재하지 않습니다.");
+        }
+    }
 }
