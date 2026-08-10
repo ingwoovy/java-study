@@ -1,38 +1,45 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StudentManager {
 
-    private List<Student> students = new ArrayList<>();
+    private Map<String, Student> studentMap = new HashMap<>();
 
     private  Student findStudent(String studentId) {
-        for (Student student : students) {
-            if (studentId.equals(student.getStudentId())){
-                return student;
-            }
-        }
-        return null;
+                return studentMap.get(studentId);
     }
+
     // 학생 추가  Create
     public void addStudent(Student student) {
-        Student existingStudent = findStudent(student.getStudentId());
 
-        if (existingStudent != null) {
+        if (studentMap.containsKey(student.getStudentId())) {
             System.out.println("이미 존재하는 학번입니다.");
             return;
         }
-        students.add(student);
+        studentMap.put(student.getStudentId(),student);
         System.out.println("학생이 추가되었습니다.");
     }
 
     // 전체 학생 출력 Read
     public void printAllStudents() {
-        if (students.isEmpty()) {
+        if (studentMap.isEmpty()) {
             System.out.println("등록된 학생이 없습니다.");
             return;
         }
-        for (Student student : students) {
+        for (Student student : studentMap.values()) {
             student.printInfo();
+        }
+    }
+
+    public void printStudentIds() {
+        for (String studentId : studentMap.keySet()) {
+            System.out.println(studentId);
+        }
+    }
+
+    public void printStudentSummary() {
+        for (Map.Entry<String, Student> entry : studentMap.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue().getName());
         }
     }
 
@@ -63,7 +70,7 @@ public class StudentManager {
 
     //학생 존재 여부
     public boolean existsStudent(String studentId) {
-        return findStudent(studentId) != null;
+        return studentMap.containsKey(studentId);
     }
 
     // 학생 삭제 delete
@@ -74,7 +81,7 @@ public class StudentManager {
             System.out.println("학생이 존재하지 않습니다.");
             return;
         }
-        students.remove(student);
+        studentMap.remove(studentId);
         System.out.println("학생이 삭제되었습니다.");
     }
 }
