@@ -27,6 +27,7 @@ public class Main {
 
             int menu = scanner.nextInt();
 
+
             switch (menu) {
                 case 1:
                     System.out.println("학생 추가를 선택했습니다.");
@@ -40,8 +41,12 @@ public class Main {
                     System.out.print("학번을 입력하세요: ");
                     String studentId = scanner.next();
 
-                    Student newStudent = new Student(name, age, studentId);
-                    manager.addStudent(newStudent);
+                    try {
+                        Student newStudent = new Student(name, age, studentId);
+                        manager.addStudent(newStudent);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 2:
@@ -70,7 +75,11 @@ public class Main {
                     System.out.print("새 나이를 입력하세요: ");
                     int newAge = scanner.nextInt();
 
-                    manager.updateStudent(updateStudentId, newName, newAge);
+                    try {
+                        manager.updateStudent(updateStudentId, newName, newAge);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 5:

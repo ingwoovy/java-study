@@ -16,6 +16,16 @@ public class Student {
     }
 
     public Student(String name, int age, String studentId) {
+        if(name == null || name.isBlank()) {
+            throw new IllegalArgumentException("이름은 비어 있을 수 없습니다.");
+        }
+        if (age <= 0) {
+            throw new IllegalArgumentException("나이는 1 이상이어야 합니다.");
+        }
+        if (studentId == null || studentId.isBlank()) {
+            throw new IllegalArgumentException("학번은 비어 있을 수 없습니다.");
+        }
+
         this.name = name;
         this.age = age;
         this.studentId = studentId;
@@ -32,6 +42,13 @@ public class Student {
     }
 
     public void updateInfo(String newName, int newAge) {
+        if (newName == null || newName.isBlank()) {
+            throw new IllegalArgumentException("이름은 비어 있을 수 없습니다.");
+        }
+        if (newAge <= 0) {
+            throw new IllegalArgumentException("나이는 1 이상이어야 합니다.");
+        }
+
         this.name = newName;
         this.age = newAge;
     }
