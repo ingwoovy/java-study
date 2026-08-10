@@ -3,7 +3,21 @@ import java.util.InputMismatchException;
 
 public class Main {
 
+    private static int readInt(Scanner scanner, String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("숫자를 입력하세요.");
+                scanner.nextLine();
+            }
+
+        }
+    }
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         StudentManager manager = new StudentManager();
@@ -16,17 +30,9 @@ public class Main {
             System.out.println("4. 학생 정보 수정");
             System.out.println("5. 학번으로 학생 삭제");
             System.out.println("6. 종료");
-            System.out.print("메뉴 번호를 입력하세요: ");
 
-            int menu;
+            int menu = readInt(scanner, "메뉴 번호를 입력하세요: ");
 
-            try {
-                menu = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("숫자를 입력해주세요.");
-                scanner.nextLine();
-                continue;
-            }
 
             switch (menu) {
                 case 1:
@@ -35,15 +41,7 @@ public class Main {
                     System.out.print("이름을 입력하세요: ");
                     String name = scanner.next();
 
-                    int age;
-                    try {
-                    System.out.print("나이를 입력하세요: ");
-                        age = scanner.nextInt();
-                    } catch (InputMismatchException e) {
-                        System.out.println("숫자를 입력하세요.");
-                        scanner.nextLine();
-                        continue;
-                    }
+                    int age = readInt(scanner, "나이를 입력하세요: ");
 
                     System.out.print("학번을 입력하세요: ");
                     String studentId = scanner.next();
@@ -84,15 +82,7 @@ public class Main {
                     System.out.print("새 이름을 입력하세요: ");
                     String newName = scanner.next();
 
-                    int newAge;
-                    try {
-                        System.out.print("새 나이를 입력하세요: ");
-                        newAge = scanner.nextInt();
-                    } catch (InputMismatchException e) {
-                        System.out.println("숫자를 입력하세요.");
-                        scanner.nextLine();
-                        continue;
-                    }
+                    int newAge = readInt(scanner, "새 나이를 입력하세요: ");
 
                     try {
                         manager.updateStudent(updateStudentId, newName, newAge);
