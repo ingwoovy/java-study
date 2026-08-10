@@ -8,14 +8,6 @@ public class Main {
 
         StudentManager manager = new StudentManager();
 
-        Student student1 = new Student("홍길동", 23, "2026001");
-        Student student2 = new Student("김철수", 25, "2026002");
-        Student student3 = new Student("이영희", 22, "2026003");
-
-        manager.addStudent(student1);
-        manager.addStudent(student2);
-        manager.addStudent(student3);
-
         while (true) {
             System.out.println("===== 학생 관리 프로그램 =====");
             System.out.println("1. 학생 추가");
@@ -83,6 +75,11 @@ public class Main {
 
                     System.out.print("수정할 학생의 학번을 입력하세요: ");
                     String updateStudentId = scanner.next();
+
+                    if (!manager.existsStudent(updateStudentId)) {
+                        System.out.println("학생이 존재하지 않습니다.");
+                        break;
+                    }
 
                     System.out.print("새 이름을 입력하세요: ");
                     String newName = scanner.next();
