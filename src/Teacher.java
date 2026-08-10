@@ -1,0 +1,36 @@
+public class Teacher extends Person{
+
+    private String teacherId;
+    private String subject;
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+    public String getSubject() {
+        return subject;
+    }
+
+    public Teacher(String name, int age, String teacherId, String subject) {
+        super(name, age);
+        if (teacherId == null || teacherId.isBlank()) {
+            throw new IllegalArgumentException("교직원 번호는 비어 있을 수 없습니다.");
+        }
+        if (subject == null || subject.isBlank()) {
+            throw new IllegalArgumentException("담당 과목은 비어 있을 수 없습니다.");
+        }
+        this.teacherId = teacherId;
+        this.subject = subject;
+    }
+
+    public void printInfo() {
+        System.out.println("===================");
+        System.out.println("교사 정보");
+        System.out.println("===================");
+        System.out.println("이름 : " + getName());
+        System.out.println("나이 : " + getAge());
+        System.out.println("교직원 번호 : " + teacherId);
+        System.out.println("담당 과목 : " + subject);
+        System.out.println("===================");
+    }
+
+}
