@@ -27,8 +27,8 @@ public class Student extends Person implements Studyable{
     public void study() {
         System.out.println(getName() + " 학생이 공부합니다.");
     }
-
-    public void updateInfo(String newName, int newAge) {
-        updatePerson(newName, newAge);
+    @Override
+    public String getId() {
+        return studentId;
     }
 }

@@ -18,102 +18,119 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Person person1 = new Student("홍길동", 20, "2026001");
-        Person person2 = new Teacher("김선생",35, "T001", "java");
-        Person person3 = new Staff("박직원", 30, "개발팀");
-
-        Workable workable1 = new Teacher("김선생",35, "T001", "java");
-        Workable workable2 = new Staff("박직원", 30, "개발팀");
-
-        Studyable studyable1 = new Student("홍길동", 20, "2026001");
-        Studyable studyable2 = new Teacher("김선생",35, "T001", "java");
-
-        Person[] people = { person1, person2, person3 };
-        Workable[] workers = {workable1, workable2};
-        Studyable[] studyables = {studyable1, studyable2};
-
-        for (Person person : people) {
-            person.printInfo();
-        }
-
-        for (Workable workable : workers) {
-            workable.work();
-        }
-        for (Studyable studyable : studyables) {
-            studyable.study();
-        }
-
-        for (Person person : people) {
-            if (person instanceof Student) {
-                Student student = (Student) person;
-                System.out.println("학생입니다.");
-                System.out.println("학번 : " + student.getStudentId());
-            }
-            if (person instanceof Teacher) {
-                Teacher teacher = (Teacher) person;
-                System.out.println("교사입니다.");
-                System.out.println("교직원 번호 : " + teacher.getTeacherId());
-            }
-        }
-
+        PersonManager personManager = new PersonManager();
+        Person person = personManager.findPerson("T001");
         Scanner scanner = new Scanner(System.in);
 
-        StudentManager manager = new StudentManager();
-
         while (true) {
-            System.out.println("===== 학생 관리 프로그램 =====");
-            System.out.println("1. 학생 추가");
-            System.out.println("2. 전체 학생 출력");
-            System.out.println("3. 학번으로 학생 검색");
-            System.out.println("4. 학생 정보 수정");
-            System.out.println("5. 학번으로 학생 삭제");
+            System.out.println("===== 인원 관리 프로그램 =====");
+            System.out.println("1. 사람 추가");
+            System.out.println("2. 전체 사람 출력");
+            System.out.println("3. ID로 사람 검색");
+            System.out.println("4. 사람 정보 수정");
+            System.out.println("5. 사람 삭제");
             System.out.println("6. 종료");
 
             int menu = readInt(scanner, "메뉴 번호를 입력하세요: ");
 
-
             switch (menu) {
                 case 1:
-                    System.out.println("학생 추가를 선택했습니다.");
+                    System.out.println("사람 추가를 선택했습니다.");
+                    System.out.println("어떤 사람을 추가하시겠습니까?");
+                    System.out.println("1. 학생 ");
+                    System.out.println("2. 선생 ");
+                    System.out.println("3. 직원 ");
 
-                    System.out.print("이름을 입력하세요: ");
-                    String name = scanner.next();
+                    int choice = readInt(scanner, "번호를 입력하세요 : ");
 
-                    int age = readInt(scanner, "나이를 입력하세요: ");
+                        switch (choice) {
+                            case 1: {
+                                System.out.print("이름을 입력하세요: ");
+                                String name = scanner.next();
 
-                    System.out.print("학번을 입력하세요: ");
-                    String studentId = scanner.next();
+                                int age = readInt(scanner, "나이를 입력하세요: ");
 
-                    try {
-                        Student newStudent = new Student(name, age, studentId);
-                        manager.addStudent(newStudent);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
+                                System.out.print("학번을 입력하세요: ");
+                                String studentId = scanner.next();
+
+                                try {
+                                    Student newStudent = new Student(name, age, studentId);
+                                    personManager.addPerson(newStudent);
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                                break;
+                            }
+                            case 2: {
+                                System.out.print("이름을 입력하세요: ");
+                                String name = scanner.next();
+
+                                int age = readInt(scanner, "나이를 입력하세요: ");
+
+                                System.out.print("교직원 번호를 입력하세요: ");
+                                String teacherId = scanner.next();
+
+                                System.out.println("담당 과목을 입력하세요: ");
+                                String subject = scanner.next();
+
+                                try {
+                                    Teacher newTeacher = new Teacher(name, age, teacherId, subject);
+                                    personManager.addPerson(newTeacher);
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                                break;
+                            }
+                            case 3: {
+                                System.out.print("이름을 입력하세요: ");
+                                String name = scanner.next();
+
+                                int age = readInt(scanner, "나이를 입력하세요: ");
+
+                                System.out.print("직원 번호를 입력하세요: ");
+                                String staffId = scanner.next();
+
+                                System.out.print("담당 부서를 입력하세요: ");
+                                String department = scanner.next();
+
+                                try {
+                                    Staff newStaff = new Staff(name, age, staffId, department);
+                                    personManager.addPerson(newStaff);
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                                break;
+                            }
+                            default:
+                                System.out.println("올바른 번호를 입력하세요.");
+                        }
+                        break;
+
 
                 case 2:
                     System.out.println("전체 출력을 선택했습니다.");
-                    manager.printAllStudents();
+                    personManager.printAllPerson();
                     break;
 
                 case 3:
-                    System.out.println("학생 검색을 선택했습니다.");
-                    System.out.print("검색할 학번을 입력하세요: ");
+                    System.out.println("사람 검색을 선택했습니다.");
+                    System.out.print("검색할 ID를 입력하세요: ");
 
-                    String searchStudentId = scanner.next();
+                    String id = scanner.next();
 
-                    manager.findStudentById(searchStudentId);
+                    personManager.findPersonById(id);
                     break;
 
                 case 4:
-                    System.out.println("학생 정보 수정을 선택했습니다.");
+                    System.out.println("사람 정보 수정을 선택했습니다.");
 
-                    System.out.print("수정할 학생의 학번을 입력하세요: ");
-                    String updateStudentId = scanner.next();
+                    System.out.print("수정할 사람의 ID를 입력하세요: ");
+                    String updatePersonId = scanner.next();
 
-                    if (!manager.existsStudent(updateStudentId)) {
-                        System.out.println("학생이 존재하지 않습니다.");
+                    Person updatePerson = personManager.findPerson(updatePersonId);
+
+                    if (updatePerson == null) {
+                        System.out.println("사람이 존재하지 않습니다.");
                         break;
                     }
 
@@ -123,19 +140,33 @@ public class Main {
                     int newAge = readInt(scanner, "새 나이를 입력하세요: ");
 
                     try {
-                        manager.updateStudent(updateStudentId, newName, newAge);
+                        personManager.updatePerson(updatePersonId, newName, newAge);
+                        if (updatePerson instanceof Teacher) {
+                            Teacher teacher = (Teacher) updatePerson;
+
+                            System.out.print("변경된 새 과목을 입력하세요: ");
+                            String newSubjecet = scanner.next();
+                            teacher.updateSubject(newSubjecet);
+                        }
+                        else if (updatePerson instanceof Staff) {
+                            Staff staff = (Staff) updatePerson;
+
+                            System.out.print("변경된 새 담당 부서를 입력하세요: ");
+                            String newDepartment = scanner.next();
+                            staff.updateDepartment(newDepartment);
+                        }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
 
                 case 5:
-                    System.out.println("학생 삭제를 선택했습니다.");
-                    System.out.print("삭제할 학번을 입력하세요: ");
+                    System.out.println("사람 삭제를 선택했습니다.");
+                    System.out.print("삭제할 ID를 입력하세요: ");
 
-                    String removeStudentId = scanner.next();
+                    String removePersonId = scanner.next();
 
-                    manager.removeStudent(removeStudentId);
+                    personManager.removePerson(removePersonId);
                     break;
 
                 case 6:

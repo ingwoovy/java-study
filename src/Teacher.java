@@ -41,4 +41,15 @@ public class Teacher extends Person implements Workable, Studyable{
     public void study() {
         System.out.println(getName() + " 선생님이 " + subject +"를 공부합니다.");
     }
+    @Override
+    public String getId() {
+        return teacherId;
+    }
+
+    public void updateSubject(String newSubject) {
+        if (newSubject == null || newSubject.isBlank()) {
+            throw new IllegalArgumentException("담당 과목은 비어 있을 수 없습니다.");
+        }
+        this.subject = newSubject;
+    }
 }

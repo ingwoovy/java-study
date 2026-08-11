@@ -38,4 +38,6 @@ public abstract class Person {
     }
 
     public abstract void printInfo();
+
+    public abstract String getId();
 }
