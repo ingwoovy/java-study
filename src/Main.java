@@ -20,8 +20,28 @@ public class Main {
 
         Person person1 = new Student("홍길동", 20, "2026001");
         Person person2 = new Teacher("김선생",35, "T001", "java");
+        Person person3 = new Staff("박직원", 30, "개발팀");
 
-        Person[] people = { person1, person2 };
+        Workable workable1 = new Teacher("김선생",35, "T001", "java");
+        Workable workable2 = new Staff("박직원", 30, "개발팀");
+
+        Studyable studyable1 = new Student("홍길동", 20, "2026001");
+        Studyable studyable2 = new Teacher("김선생",35, "T001", "java");
+
+        Person[] people = { person1, person2, person3 };
+        Workable[] workers = {workable1, workable2};
+        Studyable[] studyables = {studyable1, studyable2};
+
+        for (Person person : people) {
+            person.printInfo();
+        }
+
+        for (Workable workable : workers) {
+            workable.work();
+        }
+        for (Studyable studyable : studyables) {
+            studyable.study();
+        }
 
         for (Person person : people) {
             if (person instanceof Student) {

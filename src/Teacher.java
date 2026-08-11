@@ -1,4 +1,4 @@
-public class Teacher extends Person{
+public class Teacher extends Person implements Workable, Studyable{
 
     private String teacherId;
     private String subject;
@@ -27,12 +27,18 @@ public class Teacher extends Person{
         System.out.println("===================");
         System.out.println("교사 정보");
         System.out.println("===================");
-
-        super.printInfo();
-
+        printBasicInfo();
         System.out.println("교직원 번호 : " + teacherId);
         System.out.println("담당 과목 : " + subject);
         System.out.println("===================");
     }
+    @Override
+    public void work() {
+        System.out.println(getName() + " 선생님이 " + subject + " 수업을 합니다");
+    }
 
+    @Override
+    public void study() {
+        System.out.println(getName() + " 선생님이 " + subject +"를 공부합니다.");
+    }
 }

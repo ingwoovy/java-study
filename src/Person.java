@@ -1,4 +1,4 @@
-public class Person {
+public abstract class Person {
 
     private String name;
     private int age;
@@ -32,8 +32,10 @@ public class Person {
         this.age = newAge;
     }
 
-    public void printInfo() {
+    protected void printBasicInfo() {
         System.out.println("이름 : " + name);
         System.out.println("나이 : " + age);
     }
+
+    public abstract void printInfo();
 }
