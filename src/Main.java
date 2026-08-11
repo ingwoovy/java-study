@@ -19,7 +19,6 @@ public class Main {
     public static void main(String[] args) {
 
         PersonManager personManager = new PersonManager();
-        Person person = personManager.findPerson("T001");
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -42,9 +41,15 @@ public class Main {
                     System.out.println("3. 직원 ");
 
                     int choice = readInt(scanner, "번호를 입력하세요 : ");
-
-                        switch (choice) {
-                            case 1: {
+                    PersonType type;
+                    try {
+                        type = PersonType.fromNumber(choice);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                        switch (type) {
+                            case STUDENT: {
                                 System.out.print("이름을 입력하세요: ");
                                 String name = scanner.next();
 
@@ -61,7 +66,7 @@ public class Main {
                                 }
                                 break;
                             }
-                            case 2: {
+                            case TEACHER: {
                                 System.out.print("이름을 입력하세요: ");
                                 String name = scanner.next();
 
@@ -81,7 +86,7 @@ public class Main {
                                 }
                                 break;
                             }
-                            case 3: {
+                            case STAFF: {
                                 System.out.print("이름을 입력하세요: ");
                                 String name = scanner.next();
 
@@ -101,10 +106,7 @@ public class Main {
                                 }
                                 break;
                             }
-                            default:
-                                System.out.println("올바른 번호를 입력하세요.");
                         }
-                        break;
 
 
                 case 2:
