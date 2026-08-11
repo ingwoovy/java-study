@@ -22,12 +22,14 @@ public class Teacher extends Person{
         this.subject = subject;
     }
 
+    @Override
     public void printInfo() {
         System.out.println("===================");
         System.out.println("교사 정보");
         System.out.println("===================");
-        System.out.println("이름 : " + getName());
-        System.out.println("나이 : " + getAge());
+
+        super.printInfo();
+
         System.out.println("교직원 번호 : " + teacherId);
         System.out.println("담당 과목 : " + subject);
         System.out.println("===================");

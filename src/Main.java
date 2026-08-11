@@ -18,6 +18,24 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Person person1 = new Student("홍길동", 20, "2026001");
+        Person person2 = new Teacher("김선생",35, "T001", "java");
+
+        Person[] people = { person1, person2 };
+
+        for (Person person : people) {
+            if (person instanceof Student) {
+                Student student = (Student) person;
+                System.out.println("학생입니다.");
+                System.out.println("학번 : " + student.getStudentId());
+            }
+            if (person instanceof Teacher) {
+                Teacher teacher = (Teacher) person;
+                System.out.println("교사입니다.");
+                System.out.println("교직원 번호 : " + teacher.getTeacherId());
+            }
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         StudentManager manager = new StudentManager();

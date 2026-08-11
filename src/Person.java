@@ -31,4 +31,9 @@ public class Person {
         this.name = newName;
         this.age = newAge;
     }
+
+    public void printInfo() {
+        System.out.println("이름 : " + name);
+        System.out.println("나이 : " + age);
+    }
 }

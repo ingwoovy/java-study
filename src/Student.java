@@ -13,12 +13,14 @@ public class Student extends Person{
         }
         this.studentId = studentId;
     }
+    @Override
     public void printInfo() {
         System.out.println("===================");
         System.out.println("학생 정보");
         System.out.println("===================");
-        System.out.println("이름 : " + getName());
-        System.out.println("나이 : " + getAge());
+
+        super.printInfo();
+
         System.out.println("학번 : " + studentId);
         System.out.println("===================");
     }
