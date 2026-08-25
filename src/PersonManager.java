@@ -66,4 +66,28 @@ public class PersonManager {
         personMap.remove(id);
         System.out.println("사람이 삭제되었습니다.");
     }
+
+    // 사람 종류별 통계
+    public void printPersonStatistics() {
+
+        int studentCount = 0;
+        int teacherCount = 0;
+        int staffCount = 0;
+
+        for (Person person : personMap.values()) {
+            if (person instanceof Student) {
+                studentCount ++;
+            } else if (person instanceof Teacher) {
+                teacherCount ++;
+            } else if (person instanceof Staff) {
+                staffCount ++;
+            }
+        }
+        System.out.println("===== 사람 종류별 통계 =====");
+        System.out.println("학생 : " + studentCount);
+        System.out.println("교사 : " + teacherCount);
+        System.out.println("직원 : " + staffCount);
+        System.out.println("총 인원 : " + personMap.size());
+    }
+
 }

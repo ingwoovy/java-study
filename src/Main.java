@@ -1,5 +1,7 @@
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Main {
 
@@ -21,6 +23,21 @@ public class Main {
         PersonManager personManager = new PersonManager();
         Scanner scanner = new Scanner(System.in);
 
+        PersonKey key1 = new PersonKey("S001");
+        PersonKey key2 = new PersonKey("S001");
+
+        System.out.println(key1 == key2);
+        System.out.println(key1.equals(key2));
+        System.out.println(key1.hashCode());
+        System.out.println(key2.hashCode());
+
+        Map<PersonKey, String> map = new HashMap<>();
+
+        map.put(key1, "김철수");
+
+        System.out.println(map.get(key1));
+        System.out.println(map.get(key2));
+
         while (true) {
             System.out.println("===== 인원 관리 프로그램 =====");
             System.out.println("1. 사람 추가");
@@ -28,7 +45,8 @@ public class Main {
             System.out.println("3. ID로 사람 검색");
             System.out.println("4. 사람 정보 수정");
             System.out.println("5. 사람 삭제");
-            System.out.println("6. 종료");
+            System.out.println("6. 사람 종류별 통계");
+            System.out.println("7. 종료");
 
             int menu = readInt(scanner, "메뉴 번호를 입력하세요: ");
 
@@ -170,8 +188,12 @@ public class Main {
 
                     personManager.removePerson(removePersonId);
                     break;
-
                 case 6:
+                    System.out.println("사람 종류별 통계를 선택했습니다.");
+                    personManager.printPersonStatistics();
+                    break;
+
+                case 7:
                     System.out.println("프로그램을 종료합니다.");
                     scanner.close();
                     return;
