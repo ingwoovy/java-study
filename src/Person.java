@@ -1,4 +1,4 @@
-public abstract class Person {
+public abstract class Person implements Comparable<Person>{
 
     private String name;
     private int age;
@@ -40,4 +40,9 @@ public abstract class Person {
     public abstract void printInfo();
 
     public abstract String getId();
+
+    @Override
+    public int compareTo(Person other) {
+        return this.getName().compareTo(other.getName());
+    }
 }

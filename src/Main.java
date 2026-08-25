@@ -23,21 +23,6 @@ public class Main {
         PersonManager personManager = new PersonManager();
         Scanner scanner = new Scanner(System.in);
 
-        PersonKey key1 = new PersonKey("S001");
-        PersonKey key2 = new PersonKey("S001");
-
-        System.out.println(key1 == key2);
-        System.out.println(key1.equals(key2));
-        System.out.println(key1.hashCode());
-        System.out.println(key2.hashCode());
-
-        Map<PersonKey, String> map = new HashMap<>();
-
-        map.put(key1, "김철수");
-
-        System.out.println(map.get(key1));
-        System.out.println(map.get(key2));
-
         while (true) {
             System.out.println("===== 인원 관리 프로그램 =====");
             System.out.println("1. 사람 추가");
@@ -46,7 +31,10 @@ public class Main {
             System.out.println("4. 사람 정보 수정");
             System.out.println("5. 사람 삭제");
             System.out.println("6. 사람 종류별 통계");
-            System.out.println("7. 종료");
+            System.out.println("7. 전체 사람 이름순 출력");
+            System.out.println("8. 전체 사람 나이순 출력");
+            System.out.println("9. 전체 사람 ID순 출력");
+            System.out.println("10. 종료");
 
             int menu = readInt(scanner, "메뉴 번호를 입력하세요: ");
 
@@ -93,7 +81,7 @@ public class Main {
                                 System.out.print("교직원 번호를 입력하세요: ");
                                 String teacherId = scanner.next();
 
-                                System.out.println("담당 과목을 입력하세요: ");
+                                System.out.print("담당 과목을 입력하세요: ");
                                 String subject = scanner.next();
 
                                 try {
@@ -125,6 +113,7 @@ public class Main {
                                 break;
                             }
                         }
+                    break;
 
 
                 case 2:
@@ -192,8 +181,19 @@ public class Main {
                     System.out.println("사람 종류별 통계를 선택했습니다.");
                     personManager.printPersonStatistics();
                     break;
-
                 case 7:
+                    System.out.println("전체 사람 이름순 출력을 선택했습니다.");
+                    personManager.printAllPersonSortedByName();
+                    break;
+                case 8:
+                    System.out.println("전체 사람 나이순 출력을 선택했습니다.");
+                    personManager.printAllPersonSortedByAge();
+                    break;
+                case 9:
+                    System.out.println("전체 사람 ID순 출력을 선택했습니다.");
+                    personManager.printAllPersonSortedById();
+                    break;
+                case 10:
                     System.out.println("프로그램을 종료합니다.");
                     scanner.close();
                     return;

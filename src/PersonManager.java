@@ -1,5 +1,9 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PersonManager {
     private Map<String, Person> personMap = new HashMap<>();
@@ -90,4 +94,54 @@ public class PersonManager {
         System.out.println("총 인원 : " + personMap.size());
     }
 
+    // 이름순으로 사람 조회 (Comparable)
+    public void printAllPersonSortedByName () {
+        List<Person> personList = new ArrayList<>(personMap.values());
+
+        Collections.sort(personList);
+
+        System.out.println("이름순 출력");
+
+        for (Person person : personList) {
+            person.printInfo();
+        }
+    }
+
+    // 나이순으로 사람 조회 (Comparator)
+    public void printAllPersonSortedByAge() {
+        List<Person> personList =
+                new ArrayList<>(personMap.values());
+
+        Comparator<Person> ageComparator =
+                new Comparator<Person>() {
+
+                    @Override
+                    public int compare(Person p1, Person p2) {
+                        return Integer.compare(p1.getAge(),p2.getAge());
+                    }
+                };
+        Collections.sort(personList, ageComparator);
+
+        System.out.println("나이순 출력");
+
+        for (Person person : personList) {
+            person.printInfo();
+        }
+    }
+
+    // ID순으로 사람 조회 (Comparator Lambda)
+    public void printAllPersonSortedById() {
+        List<Person> personList =
+                new ArrayList<>(personMap.values());
+
+        Comparator<Person> idComparator =
+                (p1, p2) -> p1.getId().compareTo(p2.getId());
+        Collections.sort(personList, idComparator);
+
+        System.out.println("ID순 출력");
+
+        for (Person person : personList) {
+            person.printInfo();
+        }
+    }
 }
