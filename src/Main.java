@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 public class Main {
 
@@ -23,6 +23,12 @@ public class Main {
         PersonManager personManager = new PersonManager();
         Scanner scanner = new Scanner(System.in);
 
+        Calculator add = (a, b) -> a + b;
+        Calculator subtract = (a,b) -> a-b;
+
+        System.out.println(add.calculator(10, 5));
+        System.out.println(subtract.calculator(10,5));
+
         while (true) {
             System.out.println("===== 인원 관리 프로그램 =====");
             System.out.println("1. 사람 추가");
@@ -34,7 +40,10 @@ public class Main {
             System.out.println("7. 전체 사람 이름순 출력");
             System.out.println("8. 전체 사람 나이순 출력");
             System.out.println("9. 전체 사람 ID순 출력");
-            System.out.println("10. 종료");
+            System.out.println("10. 학생만 출력");
+            System.out.println("11. 학생 이름만 리스트로");
+            System.out.println("12. 학생을 리스트로");
+            System.out.println("13. 종료");
 
             int menu = readInt(scanner, "메뉴 번호를 입력하세요: ");
 
@@ -136,12 +145,15 @@ public class Main {
                     System.out.print("수정할 사람의 ID를 입력하세요: ");
                     String updatePersonId = scanner.next();
 
-                    Person updatePerson = personManager.findPerson(updatePersonId);
+                    Optional<Person> optionalPerson =
+                            personManager.findPerson(updatePersonId);
 
-                    if (updatePerson == null) {
+                    if (optionalPerson.isEmpty()) {
                         System.out.println("사람이 존재하지 않습니다.");
                         break;
                     }
+
+                    Person updatePerson = optionalPerson.get();
 
                     System.out.print("새 이름을 입력하세요: ");
                     String newName = scanner.next();
@@ -174,8 +186,11 @@ public class Main {
                     System.out.print("삭제할 ID를 입력하세요: ");
 
                     String removePersonId = scanner.next();
-
-                    personManager.removePerson(removePersonId);
+                    try {
+                        personManager.removePerson(removePersonId);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 6:
                     System.out.println("사람 종류별 통계를 선택했습니다.");
@@ -194,6 +209,24 @@ public class Main {
                     personManager.printAllPersonSortedById();
                     break;
                 case 10:
+                    System.out.println("학생만 출력을 선택했습니다.");
+                    personManager.printStudentsOnly();
+                    break;
+                case 11:
+                    System.out.println("학생 이름을 리스트로 반환");
+                    List<String> studentNames =
+                            personManager.getStudentNames();
+                    System.out.println(studentNames);
+                    break;
+                case 12:
+                    System.out.println("학생을 리스트로");
+                    List<Person> students =
+                            personManager.getStudents();
+                    for (Person person : students) {
+                        person.printInfo();
+                    }
+                    break;
+                case 13:
                     System.out.println("프로그램을 종료합니다.");
                     scanner.close();
                     return;

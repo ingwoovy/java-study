@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Optional;
 
 public class PersonManager {
     private Map<String, Person> personMap = new HashMap<>();
@@ -30,30 +31,31 @@ public class PersonManager {
     }
 
     // Read 학생 검색
-    public Person findPerson (String id) {
-        return personMap.get(id);
+    public Optional<Person> findPerson (String id) {
+
+        return  Optional.ofNullable(personMap.get(id));
+
     }
+
+
     public void findPersonById (String id) {
 
-        Person person = findPerson(id);
+        Optional<Person> optionalPerson = findPerson(id);
 
-        if (person == null) {
-            System.out.println("존재하는 사람이 없습니다.");
-            return;
-        }
-        System.out.println("사람을 찾았습니다.");
-        person.printInfo();
+        optionalPerson.ifPresentOrElse(
+                Person::printInfo,
+                () -> System.out.println("존재하는 사람이 없습니다.")
+        );
+
     }
 
     // Update 수정
     public void updatePerson(String id, String newName, int newAge) {
 
-        Person person = findPerson(id);
+        Person person = findPerson(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하는 사람이 없습니다")
+        );
 
-        if (person == null) {
-            System.out.println("존재하는 사람이 없습니다.");
-            return;
-        }
         person.updatePerson(newName, newAge);
         System.out.println("수정이 완료되었습니다.");
     }
@@ -61,12 +63,10 @@ public class PersonManager {
     // Delete 삭제
     public void removePerson(String id) {
 
-        Person person = findPerson(id);
+        Person person = findPerson(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하는 사람이 없습니다.")
+        );
 
-        if (person == null) {
-            System.out.println("존재하는 사람이 없습니다.");
-            return;
-        }
         personMap.remove(id);
         System.out.println("사람이 삭제되었습니다.");
     }
@@ -113,13 +113,7 @@ public class PersonManager {
                 new ArrayList<>(personMap.values());
 
         Comparator<Person> ageComparator =
-                new Comparator<Person>() {
-
-                    @Override
-                    public int compare(Person p1, Person p2) {
-                        return Integer.compare(p1.getAge(),p2.getAge());
-                    }
-                };
+                Comparator.comparingInt(Person::getAge);
         Collections.sort(personList, ageComparator);
 
         System.out.println("나이순 출력");
@@ -135,7 +129,7 @@ public class PersonManager {
                 new ArrayList<>(personMap.values());
 
         Comparator<Person> idComparator =
-                (p1, p2) -> p1.getId().compareTo(p2.getId());
+                Comparator.comparing(Person::getId);
         Collections.sort(personList, idComparator);
 
         System.out.println("ID순 출력");
@@ -143,5 +137,56 @@ public class PersonManager {
         for (Person person : personList) {
             person.printInfo();
         }
+    }
+
+    // 학생만 출력하기
+    public void printStudentsOnly() {
+
+        personMap.values().stream()
+                .filter(person -> person instanceof Student)
+                .map(Person::getName)
+                .forEach(System.out::println);
+    }
+
+    // 학생 이름을 리스트로 반환
+    public List<String> getStudentNames() {
+
+        List<String> studentName =
+                personMap.values().stream()
+                        .filter(person -> person instanceof Student)
+                        .map(Person::getName)
+                        .toList();
+
+        return studentName;
+    }
+
+    public List<Person> getStudents() {
+
+        List<Person> student =
+                personMap.values().stream()
+                        .filter(person -> person instanceof Student)
+                        .toList();
+
+        return student;
+    }
+
+    // 학생 수 반환
+    public long countStudents() {
+
+        long countstudents =
+                personMap.values().stream()
+                .filter(person -> person instanceof Student)
+                .count();
+
+        return countstudents;
+    }
+
+    // 특정 이름의 사람이 존재하는지 확인
+    public boolean existsByName(String name) {
+
+        boolean existsbyname =
+                personMap.values().stream()
+                        .anyMatch(person -> person.getName().equals(name));
+        return existsbyname;
     }
 }
